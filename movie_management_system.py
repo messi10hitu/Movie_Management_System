@@ -1,53 +1,39 @@
-def ticket():
-    name = input("plz enter your name: ")
-    contact = int(input("plz enter your contact no: "))
-    no_of_seats = int(input("plz enter no of seats you want to book: "))
-    return [{'success': 1, 'ticketData': [name, contact, no_of_seats]}]
+def singleMovie():
+    mname = input(">>>Enter The Movie Name: ")
+    myear = input(">>>Enter the Year of Releaze: ")
+    mrating = input(">>>Rate the movie on 5* :")
+    return [{'movieData': [mname, myear, mrating]}]
 
 
-
-def book():
-    ticketData = []
-    ticketData.extend(ticket())
-    return ticketData
-
-
-def update():
-    newname = ""
+def addMovie():
+    movieData = []
+    movieData.extend(singleMovie())
     flag = True
     while flag:
-        userchoice = input("what do you want to update: ")
-        if userchoice == 'name':
-            def namechange():
-                name = input("plz enter new name: ")
-                return name
+        userchoice = input(">>>Do you want to add more(y/n):")
+        if userchoice == 'y':
+            movieData.extend(singleMovie())
+        elif userchoice == 'n':
+            flag = False
+    return movieData
 
-            newname = newname.replace((), namechange())
 
-
-# main program
-print("------Bus Ticket Management System--------")
-print("for booking a ticket press 'b' or 'B'")
-print("for updating a ticket press 'u' or 'U'")
-print("for canceling a ticket press 'c' or 'C'")
-print("for reciept of a ticket press 'r' or 'R'")
-
-ticketBook = []
-ticketUpdate = []
-cancel = ""
+# main Program
+print("---Movie Management System---")
 flag = True
-userinput = input("enter your choice: ")
+movieList = []
 while flag:
-    if userinput == 'b' or userinput == 'B':
-        ticketBook.extend([book()])
-    elif userinput == 'u' or userinput == 'U':
-        ticketUpdate.extend([update()])
-    elif userinput == 'c' or userinput == 'C':
-        pass
-        # for the reciept of the ticket
-    elif userinput == 'r' or userinput == 'R':
-        for item in ticketBook[0]:
-            print("Name of the Movie: " + item['ticketData'][0], " \nyear of release: " + item['ticketData'][1],
-                  "\nrating: " + item['ticketData'][2])
+    print("--------------------------------------------")
+    print("Press 'A' to Add a new Movie:\nPress 'V' to Display All Movies:\nPress 'Q' to Quit the Application:")
+    mainMenuOption = input("Enter Your Option: ")
+    if mainMenuOption == 'q' or mainMenuOption == 'Q':
+        flag = False
+        print(">>>Thank You!!!")
+    elif mainMenuOption == 'a' or mainMenuOption == 'A':
+        movieList.extend([addMovie()])
+    elif mainMenuOption == 'v' or mainMenuOption == 'V':
+        for movie in movieList[0]:
+            print("Name of the Movie: " + movie['movieData'][0], " \nyear of release: " + movie['movieData'][1],
+                  "\nrating: " + movie['movieData'][2])
     else:
         print(">>>Invalid Option!!! Please Try Again!!!")
